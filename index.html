@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Leveraging AWS to transform your application from Monolith, SOA, Microservices to Serverless Computing</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section style="text-align: left" data-background-video="img/00_title.mp4" data-background-video-loop="true" data-background-video-muted="true">
+					<div style="position: absolute; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; text-align: left;">
+						<p>Leveraging <strong>AWS</strong> to transform your application from Monolith, SOA, Microservices to Serverless Computing</p>
+						<br>
+						<hr>
+						<p><small><strong>@carlsonorozco</strong></small></p>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Greetings</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="img/00_takeaway.jpeg">
+					<h2>Presentation Takeaways</h2>
+					<p>When you leave today, you will be able to answer the following questions:</p>
+					<ul>
+						<li class="fragment fade-up">How is it advantageous to design your application in diffirent kinds Architectural Patterns?</li>
+						<li class="fragment fade-up">Is there a success story I can leverage?</li>
+						<li class="fragment fade-up">How do I get started?</li>
+					</ul>
+				</section>
+				<section style="text-align: left; color: white; text-shadow: 2px 2px 8px #000000;" data-background="img/00_me.jpeg">
+					<h2>Who am I?</h2>
+					<ul>
+						<li class="fragment fade-up">Solutions Lead Engineer at Cambridge University Press</li>
+						<li class="fragment fade-up">Full-stack Overflow Developer</li>
+						<li class="fragment fade-up">Google-fu Practitioner</li>
+						<li class="fragment fade-up">Dad</li>
+						<li class="fragment fade-up">
+							<p>Contact</p>
+							<ul>
+								<li>Email: corozco@cambridge.org</li>
+								<li>Twitter: @carlsonorozco</li>
+								<li>Link: https://github.com/carlsonorozco</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section data-background="img/00_intro.jpeg">
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>What are the common problems when architecting your application?</h2>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Application scaling problem</li>
+							<li>Complexity</li>
+							<li>Maintainability</li>
+							<li>Re-architecture Story</li>
+						</ul>
+					</aside>
+				</section>
+				<section data-background="img/01_stonehenge.jpeg" data-background-size="cover">
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Monolith, Service Oriented, Microservices, Serverless, etc</h2>
+					</div>
+				</section>
+				<section>
+					<section data-background="img/02_what_is_monolithic_architecture.jpg" data-background-size="auto 100%">
+						<div style="position: absolute; width: 40%; right: 0; top:-200px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+							<h2>What is Monolithic Architecture?</h2>
+						</div>
+					</section>
+					<section data-background="img/02_monolithic_block_diagram.png" data-background-size="auto 80%" data-background-position="20% 80%" data-background-color="#ffffff">
+						<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 30px; text-align: left;">
+							<p>A monolithic architecture refers to a single indivisible unit usually consists of client-side UI, server-side application and database.</p>
+						</div>
+					</section>
+					<section data-background="img/02_monolithic_infra_diagram.png" data-background-size="contain" data-background-color="#ffffff">
+						<aside class="notes">
+							<ul>
+								<li>Web Server</li>
+								<li>Application Server</li>
+								<li>SMTP Server</li>
+								<li>Database Server</li>
+							</ul>
+						</aside>
+					</section>
+					<section data-background="img/02_monolithic_pros_cons.png">
+						<div style="width: 40%; float: left;">
+							<h3 class="fragment fade-up">Pros</h3>
+							<ul>
+								<li class="fragment fade-up">Simplify the development</li>
+								<li class="fragment fade-up">Simplify the deployment</li>
+								<li class="fragment fade-up">Better performance</li>
+								<li class="fragment fade-up">Less cross-cutting concerns</li>
+							</ul>
+						</div>
+						<div style="width: 40%; float: right;">
+							<h3 class="fragment fade-up">Cons</h3>
+							<ul>
+								<li class="fragment fade-up">Limited Agility</li>
+								<li class="fragment fade-up">Difficult to add new technology</li>
+								<li class="fragment fade-up">Code bloated, IDE gets overloaded</li>
+								<li class="fragment fade-up">Scaling is expensive</li>
+							</ul>
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>Simplify development and deployment - developers don’t need to deploy changes or updates separately</li>
+								<li>Better performance - if built properly, monolithic apps are usually more performant than microservice-based apps.</li>
+								<li>Less cross-cutting concerns - cross-cutting concerns, such as audit trails, logging, rate limiting, etc.</li>
+							</ul>
+							<br>
+							<ul>
+								<li>Limited Agility - every small update requires a full redeployment</li>
+							</ul>
+							<p>Monolithic is perfect for startups that need to get a product up and running ASAP.</p>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section data-background="img/03_what_is_soa.jpg" data-background-size="auto 100%">
+						<div style="position: absolute; width: 40%; right: 0; top:-200px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+							<h2>What is SOA?</h2>
+						</div>
+					</section>
+					<section data-background="img/03_soa_block_diagram.png" data-background-size="auto 80%" data-background-position="20% 80%" data-background-color="#ffffff">
+						<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 30px; text-align: left;">
+							<p>Service-oriented architecture is an application composed of discrete and loosely coupled service that perform a required function.</p>
+						</div>
+					</section>
+					<section data-background="img/03_soa_infra_diagram.png" data-background-size="contain" data-background-color="#ffffff"></section>
+					<section data-background="img/03_soa_pros_cons.jpg">
+						<div style="width: 40%; float: left;">
+							<h3 class="fragment fade-up">Pros</h3>
+							<ul>
+								<li class="fragment fade-up">Service reusability</li>
+								<li class="fragment fade-up">High Reliability</li>
+								<li class="fragment fade-up">Multiple development</li>
+								<li class="fragment fade-up">Better maintainability</li>
+							</ul>
+						</div>
+						<div style="width: 40%; float: right;">
+							<h3 class="fragment fade-up">Cons</h3>
+							<ul>
+								<li class="fragment fade-up">Investment cost is higher</li>
+								<li class="fragment fade-up">More overload</li>
+								<li class="fragment fade-up">Complexity increase</li>
+							</ul>
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>Service reusability - loosely coupled, reuse in multiple application without influencing other services.</li>
+								<li>High Reliability - easier to debug and test than a huge chunks of code like in the monolithic</li>
+								<li>Multiple development - since consists of layers, independent services can be developed in parallel</li>
+								<li>Better maintainability - since it is independent unit, it is easy to update and maintain without affecting other services.</li>
+							</ul>
+							<br>
+							<ul>
+								<li>Investment cost is higher - upfront investment of human resources, technology and development</li>
+								<li>More overload - when using multiple services, this increases response time and decreases overall performance</li>
+								<li>Complexity increase - challenging to manage all services</li>
+							</ul>
+							<p>SOA approach is best suited for complex enterprise systems such as banks. Banking system is extremely hard to break into microservices. Monolithc approach also isn't good for it since whole app could be affected.</p>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section data-background="img/04_what_is_microservice_architecture.jpg" data-background-size="auto 100%">
+						<div style="position: absolute; width: 40%; right: 0; top:-250px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+							<h2>What is Microservice Architecture?</h2>
+						</div>
+					</section>
+					<section data-background="img/04_microservice_block_diagram.png" data-background-size="auto 80%" data-background-position="20% 80%" data-background-color="#ffffff">
+						<div style="position: absolute; width: 30%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 30px; text-align: left;">
+							<p>Microservice is a type of service-oriented software architecture that composes of series of autonomous and independent components that are glued together with APIs.</p>
+						</div>
+					</section>
+					<section data-background="img/04_microservice_infra_diagram.png" data-background-size="contain" data-background-color="#ffffff"></section>
+					<section data-background="img/04_microservice_pros_cons.jpg">
+						<div style="width: 40%; float: left;">
+							<h3 class="fragment fade-up">Pros</h3>
+							<ul>
+								<li class="fragment fade-up">Easy to develop and deploy</li>
+								<li class="fragment fade-up">Easy test</li>
+								<li class="fragment fade-up">Increase Agility</li>
+								<li class="fragment fade-up">Horizontally Scalable</li>
+							</ul>
+						</div>
+						<div style="width: 40%; float: right;">
+							<h3 class="fragment fade-up">Cons</h3>
+							<ul>
+								<li class="fragment fade-up">Complex</li>
+								<li class="fragment fade-up">Concerns in security</li>
+								<li class="fragment fade-up">Programming language switch</li>
+							</ul>
+						</div>
+						<aside class="notes">
+							<p>Microservices are good, but not for all types of apps. This pattern works great for evolving applications and complex systems.</p>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section data-background="img/05_what_is_serverless_architecture.jpg" data-background-size="auto 100%">
+						<div style="position: absolute; width: 40%; right: 0; top:-250px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+							<h2>What is Serverless Architecture?</h2>
+						</div>
+					</section>
+					<section data-background="img/05_serverless_block_diagram.png" data-background-size="auto 60%" data-background-position="10% 90%" data-background-color="#ffffff">
+						<div style="position: absolute; width: 30%; right: 0; top: -200px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 30px; text-align: left;">
+							<p>Serverless architecture is a cloud computing approach in building application without managing infrastructures.</p>
+						</div>
+					</section>
+					<section data-background="img/05_serverless_infra_diagram.png" data-background-size="contain" data-background-color="#ffffff"></section>
+					<section data-background="img/05_serverless_pros_cons.jpg">
+						<div style="width: 40%; float: left;">
+							<h3 class="fragment fade-up">Pros</h3>
+							<ul>
+								<li class="fragment fade-up">Scalability</li>
+								<li class="fragment fade-up">Reduce costs</li>
+								<li class="fragment fade-up">Easy deployment</li>
+							</ul>
+						</div>
+						<div style="width: 40%; float: right;">
+							<h3 class="fragment fade-up">Cons</h3>
+							<ul>
+								<li class="fragment fade-up">Not good for long term task</li>
+								<li class="fragment fade-up">Vendor lock-in</li>
+							</ul>
+						</div>
+						<aside class="notes">
+							<p>Serverless architecture is beneficial for accomplishing one-time tasks and auxiliary processes.</p>
+						</aside>
+					</section>
+				</section>
+				<section data-background-video="img/are_you_done.mp4" data-background-video-loop="true" data-background-video-muted="true" data-background-size="contain">
+					<div style="position: absolute; width: 40%; right: 0; top: 250px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h2>Are you done?</h2>
+					</div>
+				</section>
+				<section>
+					<section data-background="img/06_event_driven_bonus.jpg">
+						<h2>Bonus</h2>
+						<h3>Event-driven Architecture</h3>
+					</section>
+					<section data-background="img/06_event_driven_infra_diagram.png" data-background-size="contain" data-background-color="#ffffff"></section>
+				</section>
+				<section data-background="img/questions.jpg" data-background-size="auto 100%">
+					<div style="position: absolute; width: 40%; right: 0; top: -250px; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<h3>Hmmm.. I have a question!</h3>
+					</div>
+				</section>
+				<section data-background="img/hiring.jpg" data-background-size="auto 100%" data-background-position="25% 75%">
+					<div style="position: absolute; width: 40%; right: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2); background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px; font-size: 20px; text-align: left;">
+						<img src="img/hiring_qr.png" alt="">
+						<p style="font-size: 30px">http://bit.ly/2mErHn6</p>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+			Reveal.configure({ slideNumber: true });
+			Reveal.configure({ showSlideNumber: 'speaker' });
+		</script>
+	</body>
+</html>
